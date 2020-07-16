@@ -1,4 +1,4 @@
-package domain;
+package domain.scraper;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,24 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class TableScraper {
+public class AccessTableScraper extends AbstractTableScraper{
 	
 	Connection con;
 	ResultSet rs;
 	ArrayList<String> columnNames;
+	ArrayList<String> columnTypes;
 	
-	public TableScraper(String url, String tableName) throws SQLException {
-		super();
-		con = null;
-		rs = null;
-		columnNames = new ArrayList<String>();
-		retrieveTableContents(url, tableName);
+	public AccessTableScraper(String url, String tableName) throws SQLException {
+		super(url, tableName);
 	}
 		
 	public void retrieveTableContents(String tableDNS, String tableName) throws SQLException {		
 		
-		//Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-		String url="jdbc:ucanaccess:" + /*System.getProperty("file.separator")*/ "//" +  tableDNS; 
+		String url="jdbc:ucanaccess://" +  tableDNS; 
 		
 		con = DriverManager.getConnection(url);
 		Statement st = con.createStatement();
@@ -39,16 +35,10 @@ public class TableScraper {
 		// Creamos una lista con los nombres de las columnas
 		for (int i = 1; i <= columnCount; i++ ) {
 			columnNames.add(rsmd.getColumnName(i));
+			columnTypes.add(rsmd.getColumnTypeName(i));
 		}
-		con.close();
-		
+		System.out.println("Columnas: " + columnNames);
+		System.out.println("Tipos: " + columnTypes);
+		con.close();	
 	}
-
-	public ResultSet getResultSet() {
-		return rs;
-	}
-
-	public ArrayList<String> getColumnNames() {
-		return columnNames;
-	}	
 }
