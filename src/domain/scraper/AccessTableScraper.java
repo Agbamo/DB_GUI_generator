@@ -12,9 +12,7 @@ public class AccessTableScraper extends AbstractTableScraper{
 	
 	Connection con;
 	ResultSet rs;
-	ArrayList<String> columnNames;
-	ArrayList<String> columnTypes;
-	
+
 	public AccessTableScraper(String url, String tableName) throws SQLException {
 		super(url, tableName);
 	}
@@ -34,8 +32,10 @@ public class AccessTableScraper extends AbstractTableScraper{
 		int columnCount = rsmd.getColumnCount();
 		// Creamos una lista con los nombres de las columnas
 		for (int i = 1; i <= columnCount; i++ ) {
-			columnNames.add(rsmd.getColumnName(i));
-			columnTypes.add(rsmd.getColumnTypeName(i));
+			columnNames.add(rsmd.getColumnLabel(i));
+			columnTypes.add(rsmd.getColumnClassName(i));
+			rsmd.getColumnClassName(i);			///////////
+			// columnClassName=java.lang.String, columnDisplaySize=255, columnLabel=SHORTTEXT
 		}
 		System.out.println("Columnas: " + columnNames);
 		System.out.println("Tipos: " + columnTypes);

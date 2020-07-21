@@ -10,6 +10,8 @@ import persistence.FileBroker;
 
 public class FileVisitor {
 	
+	String tableName;
+	
 	File inputRoot;        // El armazón del proyecto y las plantillas.
 	File outputRoot;       // El proyecto autogenerado.
 	
@@ -17,16 +19,20 @@ public class FileVisitor {
 	File managerFile;      // El archivo manager.java
 	
 	AbstractGenerator generator;
+	AbstractTableScraper tableScraper;
 	
-	public FileVisitor(File inputRoot, File outputRoot, AbstractTableScraper tableScraper, AbstractGenerator generator) {
+	public FileVisitor(File inputRoot, File outputRoot, AbstractTableScraper tableScraper, AbstractGenerator generator, String tableName) {
 		super();
 		this.inputRoot = inputRoot;
 		this.outputRoot = outputRoot;
 		this.generator = generator;
+		this.tableScraper = tableScraper;
+		this.tableName = tableName;
 		customPanelFile = new File(outputRoot + System.getProperty("file.separator") 
 				+ "src" + System.getProperty("file.separator") 
 				+ "presentation" + System.getProperty("file.separator") 
 				+ "CustomJPanel.java");
+		
 		managerFile = new File(outputRoot + System.getProperty("file.separator") 
 				+ "src" + System.getProperty("file.separator") 
 				+ "domain" + System.getProperty("file.separator") 
@@ -48,11 +54,11 @@ public class FileVisitor {
 	}
 
 	private String generateCustomJPanelCode() {
-		return generator.generateGUICode();
+		return generator.generateGUICode(tableScraper, tableName);
 	}
 	
 	private String generateManagerCode() {
-		return generator.generateManagerCode();
+		return generator.generateManagerCode(tableScraper, tableName);
 	}
 
 }

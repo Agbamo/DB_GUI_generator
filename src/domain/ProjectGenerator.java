@@ -23,9 +23,8 @@ public class ProjectGenerator {
 	
 	static File inputRoot = new File(ProgramDirectoryUtilities.getProgramDirectory() 
 			+ System.getProperty("file.separator") + "templates" +  System.getProperty("file.separator") 
-			+ "projectFrame" + System.getProperty("file.separator") 
 		    + "Inserter" + System.getProperty("file.separator"));
-	static File outputRoot = new File(System.getProperty("user.home"));
+	static File outputRoot = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "Inserter");
 	
 	public static void main(String[] args) {	
 		// Leemos los argumentos recibidos por consola.
@@ -35,7 +34,7 @@ public class ProjectGenerator {
 				instanceTableScraper();
 				// Copiamos la estructura del proyecto y generamos las partes variables del código.
 				instanceGenerator();
-				fileVisitor = new FileVisitor(inputRoot, outputRoot, tableScraper, adapter);
+				fileVisitor = new FileVisitor(inputRoot, outputRoot, tableScraper, adapter, tableName);
 				fileVisitor.writeProject();
 				
 			// Si ocurre una excepción durante la lectura, se informa al usuario y se detiene la ejecución.	

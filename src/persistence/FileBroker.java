@@ -8,7 +8,7 @@ import java.nio.file.Files;
 public class FileBroker {
 	
 	
-	
+	// Toma como entrada un directorio y lo copia recusivamente en el directorio indicado.
 	public static void copyFolder(File src, File dest) throws IOException {
 		if(src==null || dest==null)
 			return;
@@ -39,6 +39,7 @@ public class FileBroker {
 		}
 	}
 
+	//Escribe una cadena en un archivo.
 	public static void write(File myObj, String code) throws IOException {
 		      FileWriter myWriter = new FileWriter(myObj);
 		      myWriter.write(code);
