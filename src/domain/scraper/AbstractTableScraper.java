@@ -13,11 +13,13 @@ public abstract class AbstractTableScraper {
 	ResultSet rs;
 	ArrayList<String> columnNames;
 	ArrayList<String> columnTypes;
+	String url = "";
 	
 	public AbstractTableScraper(String url, String tableName) throws SQLException {
 		super();
 		con = null;
 		rs = null;
+		this.url = url;
 		columnNames = new ArrayList<String>();
 		columnTypes = new ArrayList<String>();
 		retrieveTableContents(url, tableName);
@@ -39,5 +41,13 @@ public abstract class AbstractTableScraper {
 
 	public void setColumnTypes(ArrayList<String> columnTypes) {
 		this.columnTypes = columnTypes;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

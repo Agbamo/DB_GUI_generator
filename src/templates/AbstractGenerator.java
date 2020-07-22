@@ -1,8 +1,6 @@
-package domain.generators;
+package templates;
 
 import domain.scraper.AbstractTableScraper;
-import templates.CustomJPanel_Template;
-import templates.Manager_Template;
 
 public abstract class  AbstractGenerator {
 	

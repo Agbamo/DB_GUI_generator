@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import domain.generators.AbstractGenerator;
 import domain.scraper.AbstractTableScraper;
 import persistence.FileBroker;
+import templates.AbstractGenerator;
 
 public class FileVisitor {
 	

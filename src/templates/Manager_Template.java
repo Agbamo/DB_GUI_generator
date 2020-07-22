@@ -15,7 +15,7 @@ public class Manager_Template {
 	}
 	
 	public static String tail() {
-		return "	);\r\n" + 
+		return "	\r\n" + 
 				"	\r\n" + 
 				"	private static Manager singleInstance = new Manager();\r\n" + 
 				"	 \r\n" + 

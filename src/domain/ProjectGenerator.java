@@ -2,13 +2,15 @@ package domain;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import domain.scraper.AccessTableScraper;
 import domain.util.ProgramDirectoryUtilities;
-import domain.generators.AbstractGenerator;
-import domain.generators.AccessGenerator;
+import templates.AbstractGenerator;
+import templates.AccessGenerator;
 import domain.scraper.AbstractTableScraper;
 
 public class ProjectGenerator {
@@ -22,7 +24,7 @@ public class ProjectGenerator {
 	private static FileVisitor fileVisitor;           // Gestor de archivos; encargado de copiar la estructura del proyecto.
 	
 	static File inputRoot = new File(ProgramDirectoryUtilities.getProgramDirectory() 
-			+ System.getProperty("file.separator") + "templates" +  System.getProperty("file.separator") 
+			+ System.getProperty("file.separator") + "base_structure" +  System.getProperty("file.separator") 
 		    + "Inserter" + System.getProperty("file.separator"));
 	static File outputRoot = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "Inserter");
 	
@@ -80,7 +82,10 @@ public class ProjectGenerator {
 
 	private static boolean readArguments(String[] args) {
 		if(args.length == 3) {
-			inputUrl = args[0];
+			String auxURL = args[0];
+			Path auxPath = Paths.get(auxURL);
+			auxURL = auxPath.toString();
+			inputUrl = auxURL.replace("\\", "\\\\");
 			tableName = args[1];
 			dbSystem = args[2];
 		} else {

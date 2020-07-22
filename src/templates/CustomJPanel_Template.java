@@ -10,7 +10,8 @@ public class CustomJPanel_Template {
 				"import domain.Manager;\r\n" + 
 				"import javax.swing.JPanel;\r\n" + 
 				"import java.awt.GridBagLayout;\r\n" + 
-				"import javax.swing.JLabel;\r\n" + 
+				"import javax.swing.JLabel;\r\n" +
+				"import javax.swing.JTextField;\r\n" + 
 				"\r\n" + 
 				"import java.awt.GridBagConstraints;\r\n" + 
 				"import java.awt.Insets;\r\n" + 

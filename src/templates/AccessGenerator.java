@@ -1,4 +1,4 @@
-package domain.generators;
+package templates;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,41 +20,42 @@ public class AccessGenerator extends AbstractGenerator{
 		while(namesIterator.hasNext() && typesIterator.hasNext()) {
 			String name = namesIterator.next();
 			String type = typesIterator.next();
-			output += "JLabel lbl" + count + " = new JLabel(\"" + name + "\");\r\n"
-					+ "GridBagConstraints gbc_lbl" + count + " = new GridBagConstraints();"
-							+ "gbc_lbl" + count + ".anchor = GridBagConstraints.EAST;"
-							+ "gbc_lbl" + count + ".insets = new Insets(0, 0, 5, 5);"
-							+ "gbc_lbl" + count + ".gridx = 1;"
-							+ "gbc_lbl" + count + ".gridy = " + 2*(count-1)+1 + ";"
-							+ "panel.add(lbl" + count + ", gbc_lbl" + count + ");"
-							+ "\r\n";
+			output += "JLabel lbl" + count + " = new JLabel(\"" + name + "\");\r\n\t\t"
+					+ "GridBagConstraints gbc_lbl" + count + " = new GridBagConstraints();\r\n\t\t"
+							+ "gbc_lbl" + count + ".anchor = GridBagConstraints.EAST;\r\n\t\t"
+							+ "gbc_lbl" + count + ".insets = new Insets(0, 0, 5, 5);\r\n\t\t"
+							+ "gbc_lbl" + count + ".gridx = 1;\r\n\t\t"
+							+ "gbc_lbl" + count + ".gridy = " + 2*(count-1)+1 + ";\r\n\t\t"
+							+ "panel.add(lbl" + count + ", gbc_lbl" + count + ");\r\n\t\t"
+							+ "\r\n\t\t";
 			switch(type) {
 		 		case "java.lang.String":
-		 			output += "JTextField input" + count + " = new JTextField();" ;
+		 			output += "JTextField input" + count + " = new JTextField();\r\n\t\t" ;
 					break;
 				case "java.lang.Integer":
-					output += "JTextField input" + count + " = new JTextField();" ;
+					output += "JTextField input" + count + " = new JTextField();\r\n\t\t" ;
 					break;
 				case "java.sql.Timestamp":
-					output += "JCalendar input" + count + " = new JCalendar();" ;
+					output += "JCalendar input" + count + " = new JCalendar();\r\n\t\t" ;
 					break;
 				case "java.math.BigDecimal":
-					output += "JTextField input" + count + " = new JTextField();" ;
+					output += "JTextField input" + count + " = new JTextField();\r\n\t\t" ;
 					break;
 				case "java.lang.Boolean":
-					output += "JRadioButton input" + count + " = new JRadioButton(\"\");" ;
+					output += "JRadioButton input" + count + " = new JRadioButton(\"\");\r\n\t\t" ;
 					break;
 				default:
-					output += "JTextField input" + count + " = new JTextField();" ;
+					output += "JTextField input" + count + " = new JTextField();\r\n\t\t" ;
 					break;
 			}
-			output += "GridBagConstraints gbc_input" + count + " = new GridBagConstraints();\r\n" 
-					+"gbc_input" + count + ".insets = new Insets(0, 0, 5, 5);\r\n" 
-					+"gbc_input" + count + ".gridx = 2;\r\n"
-					+"gbc_input" + count + ".gridy = " + 2*(count-1)+1 + ";\r\n" 
-					+"panel.add(input" + count + ", gbc_input" + count + ");\r\n" 
+			output += "GridBagConstraints gbc_input" + count + " = new GridBagConstraints();\r\n\t\t" 
+					+"gbc_input" + count + ".insets = new Insets(0, 0, 5, 5);\r\n\t\t" 
+					+"gbc_input" + count + ".gridx = 2;\r\n\t\t"
+					+"gbc_input" + count + ".gridy = " + 2*(count-1)+1 + ";\r\n\t\t" 
+					+"panel.add(input" + count + ", gbc_input" + count + ");\r\n\t\t" 
 					+"inputList.add(input" + count + ");"
-					+ "\r\n";
+					+ "\r\n\t\t";
+		count++;
 		}
 		return output;
 	}
@@ -64,6 +65,7 @@ public class AccessGenerator extends AbstractGenerator{
 		String output = "";
 		
 		output += "String databasePath = \"";
+		output += tableScraper.getUrl();
 		output += "\";\r\n" + 
 				"	ArrayList<String> valuesToInsert = new ArrayList<String>();\r\n" + 
 				"	TableSchema schema = new TableSchema(\r\n" + 
@@ -84,7 +86,7 @@ public class AccessGenerator extends AbstractGenerator{
 		Iterator<String> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			String element = iterator.next();
-			output += element;
+			output += "\"" + element + "\"";
 			if(iterator.hasNext()) {
 				output += ", ";	
 			}
