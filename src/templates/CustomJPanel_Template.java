@@ -1,5 +1,9 @@
 package templates;
 
+import javax.swing.JTextField;
+
+import com.toedter.calendar.JCalendar;
+
 public class CustomJPanel_Template {
 	
 	public static String header() {
@@ -7,10 +11,10 @@ public class CustomJPanel_Template {
 				"\r\n" + 
 				"import javax.swing.JScrollPane;\r\n" + 
 				"\r\n" + 
-				"import domain.Manager;\r\n" + 
+				"import java.sql.Timestamp;\r\n" + 
 				"import javax.swing.JPanel;\r\n" + 
 				"import java.awt.GridBagLayout;\r\n" + 
-				"import javax.swing.JLabel;\r\n" +
+				"import javax.swing.JLabel;\r\n" + 
 				"import javax.swing.JTextField;\r\n" + 
 				"\r\n" + 
 				"import java.awt.GridBagConstraints;\r\n" + 
@@ -45,38 +49,34 @@ public class CustomJPanel_Template {
 	}
 	
 	public static String tail() {
-		return "	}\r\n" + 
+		return "}\r\n" + 
 				"\r\n" + 
 				"	public ArrayList<String> getInputValues() {\r\n" + 
 				"		ArrayList<String> output = new ArrayList<String>();\r\n" + 
 				"		Iterator<Object> inputIterator = inputList.iterator();\r\n" + 
 				"		while(inputIterator.hasNext()) {\r\n" + 
 				"			Object input = inputIterator.next();\r\n" + 
-				"			if(input instanceof JLabel) {\r\n" + 
-				"				output.add(\"autoincremental\");\r\n" + 
-				"			}else if(input instanceof JCalendar) {\r\n" + 
-				"				JCalendar current = (JCalendar)input;				\r\n" + 
+				"			if(input instanceof JCalendar) {\r\n" + 
+				"				JCalendar current = (JCalendar)input;\r\n" + 
 				"				java.util.Date utilStartDate = current.getDate();\r\n" + 
 				"				java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());\r\n" + 
 				"				output.add(sqlStartDate.toString());\r\n" + 
 				"			}else if(input instanceof JRadioButton) {\r\n" + 
 				"				JRadioButton current = (JRadioButton)input;\r\n" + 
 				"				if(current.isSelected()) {\r\n" + 
-				"					output.add(\"TRUE\");\r\n" + 
+				"					output.add(Boolean.TRUE.toString());\r\n" + 
 				"				}else {\r\n" + 
-				"					output.add(\"FALSE\");\r\n" + 
+				"					output.add(Boolean.FALSE.toString());\r\n" + 
 				"				}\r\n" + 
 				"			}else if(input instanceof JComboBox) {\r\n" + 
 				"				JComboBox<String> current = (JComboBox)input;\r\n" + 
 				"				output.add((String)((JComboBox) input).getSelectedItem());\r\n" + 
-				"			}\r\n" + 
-				"			////////////////////////\r\n" + 
-				"			// Ver qué más añadir //\r\n" + 
-				"			////////////////////////	\r\n" + 
+				"			}else if(input instanceof JTextField) {\r\n" + 
+				"				output.add(((JTextField)input).getText());\r\n" + 
+				"			}\r\n" +  
 				"		}\r\n" + 
 				"		return output;\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
+				"	}" +
 				"}";
 	}
 }

@@ -1,3 +1,9 @@
+/commons-lang3-3.8.1.jar
+/commons-logging-1.2.jar
+/hsqldb-2.5.0.jar
+/jackcess-3.0.1.jar
+/jcalendar-1.4.jar
 /domain/
 /persistence/
 /templates/
+/ucanaccess-5.0.0.jar

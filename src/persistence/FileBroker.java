@@ -44,6 +44,6 @@ public class FileBroker {
 		      FileWriter myWriter = new FileWriter(myObj);
 		      myWriter.write(code);
 		      myWriter.close();
-		      System.out.println("Successfully wrote to the file.");
+		      System.out.println("Successfully wrote the file " + myObj.getName() );
 	}
 }

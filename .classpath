@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="lib/jackcess-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/ucanaccess-5.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.20.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-42.2.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

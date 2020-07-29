@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import domain.scraper.AccessTableScraper;
+import domain.scraper.MySQLScraper;
+import domain.scraper.PostgreSQLScraper;
 import domain.util.ProgramDirectoryUtilities;
-import templates.AbstractGenerator;
-import templates.AccessGenerator;
+import domain.generators.AbstractGenerator;
+import domain.generators.AccessGenerator;
+import domain.generators.MySQLGenerator;
+import domain.generators.PostgreSQLGenerator;
 import domain.scraper.AbstractTableScraper;
 
 public class ProjectGenerator {
@@ -38,7 +41,6 @@ public class ProjectGenerator {
 				instanceGenerator();
 				fileVisitor = new FileVisitor(inputRoot, outputRoot, tableScraper, adapter, tableName);
 				fileVisitor.writeProject();
-				
 			// Si ocurre una excepción durante la lectura, se informa al usuario y se detiene la ejecución.	
 			} catch (SQLException sqle) {
 				System.out.println("Error while reading input database");
@@ -59,32 +61,31 @@ public class ProjectGenerator {
 	}
 	
 	
-	// Instanciamos el generador adecuado para el SGBD que nos ocupa.
+	// Instanciamos el generador con la extensión adecuada para el SGBD que nos ocupa.
 	private static void instanceGenerator() {
 		if(dbSystem.equals("Access")) {
 			adapter = new AccessGenerator();
+		}else if(dbSystem.equals("MySQL")) {
+			adapter = new MySQLGenerator();
+		}else if(dbSystem.equals("PostgreSQL")) {
+			adapter = new PostgreSQLGenerator();
 		}
-		////////////////////////////////////
-		//           WIP
-		////////////////////////////////////
 	}
 
-
-	// Instanciamos el scraper adecuado para el SGBD que nos ocupa.
+	// Instanciamos el scraper con la extensión adecuada para el SGBD que nos ocupa.
 	private static void instanceTableScraper() throws SQLException{
 		if(dbSystem.equals("Access")) {
 			tableScraper = new AccessTableScraper(inputUrl, tableName);
+		}else if(dbSystem.equals("MySQL")) {
+			tableScraper = new MySQLScraper(inputUrl, tableName);
+		}else if(dbSystem.equals("PostgreSQL")) {
+			tableScraper = new PostgreSQLScraper(inputUrl, tableName);
 		}
-		////////////////////////////////////
-		//           WIP
-		////////////////////////////////////
 	}
 
 	private static boolean readArguments(String[] args) {
 		if(args.length == 3) {
 			String auxURL = args[0];
-			Path auxPath = Paths.get(auxURL);
-			auxURL = auxPath.toString();
 			inputUrl = auxURL.replace("\\", "\\\\");
 			tableName = args[1];
 			dbSystem = args[2];
@@ -92,6 +93,5 @@ public class ProjectGenerator {
 			return false;
 		}
 		return true;
-	}
-		
+	}	
 }

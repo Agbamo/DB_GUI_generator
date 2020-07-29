@@ -4,10 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
-import javax.swing.JScrollPane;
 
 import domain.Manager;
-import persistence.TableDAO;
+import persistence.DBManager;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -100,7 +99,7 @@ public class MainWindow {
 	private void insert() {
 		Manager.getInstance().setValuesToInsert((ArrayList<String>)scrollPanel.getInputValues());
 		try {
-			TableDAO.insert();
+			DBManager.insertValues();
 			lblInfo.setText("Insertion performed");
 		}catch (Exception e) {
 			lblInfo.setText("Error while performing insertion: " + e.getMessage());

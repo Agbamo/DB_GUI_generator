@@ -1,26 +1,22 @@
 package domain.scraper;
-import java.io.File;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
-public class AccessTableScraper extends AbstractTableScraper{
-	
-	Connection con;
-	ResultSet rs;
+public class MySQLScraper extends AbstractTableScraper {
 
-	public AccessTableScraper(String url, String tableName) throws SQLException {
+	public MySQLScraper(String url, String tableName) throws SQLException {
 		super(url, tableName);
 	}
-		
-	public void retrieveTableContents(String tableDNS, String tableName) throws SQLException {		
-		
-		String url="jdbc:ucanaccess://" +  tableDNS; 
-		con = DriverManager.getConnection(url);
+
+	@Override
+	public void retrieveTableContents(String tableDNS, String tableName) throws SQLException {
+
+		String url="jdbc:mysql://" +  tableDNS; 
+		Connection con = DriverManager.getConnection(url, "root", "");
 		
 		Statement st = con.createStatement();
 		// Creamos la consulta de selección.
@@ -34,10 +30,11 @@ public class AccessTableScraper extends AbstractTableScraper{
 		for (int i = 1; i <= columnCount; i++ ) {
 			columnNames.add(rsmd.getColumnLabel(i));
 			columnTypes.add(rsmd.getColumnClassName(i));
-			rsmd.getColumnClassName(i);	
+			rsmd.getColumnClassName(i);			
 		}
 		System.out.println("Columnas: " + columnNames);
 		System.out.println("Tipos: " + columnTypes);
-		con.close();	
+		con.close();
 	}
+
 }

@@ -2,7 +2,7 @@ package templates;
 
 import java.util.ArrayList;
 
-public class Manager_Template {
+public class DomainManager_Template {
 	
 	public static String header() {
 		return "package domain;\r\n" + 
@@ -18,7 +18,7 @@ public class Manager_Template {
 		return "	\r\n" + 
 				"	\r\n" + 
 				"	private static Manager singleInstance = new Manager();\r\n" + 
-				"	 \r\n" + 
+				"	\r\n" + 
 				"    public static Manager getInstance() {\r\n" + 
 				"        return singleInstance;\r\n" + 
 				"    }\r\n" + 
