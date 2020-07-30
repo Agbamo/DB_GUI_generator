@@ -24,7 +24,7 @@ public abstract class AbstractTableScraper {
 		columnTypes = new ArrayList<String>();
 		retrieveTableContents(url, tableName);
 	}
-		
+	
 	public abstract void retrieveTableContents(String tableDNS, String tableName) throws SQLException;
 
 	public ResultSet getResultSet() {
