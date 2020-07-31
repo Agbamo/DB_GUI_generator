@@ -9,9 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AccessTableScraper extends AbstractTableScraper{
-	
-	Connection con;
-	ResultSet rs;
 
 	public AccessTableScraper(String url, String tableName) throws SQLException {
 		super(url, tableName);
@@ -20,13 +17,13 @@ public class AccessTableScraper extends AbstractTableScraper{
 	public void retrieveTableContents(String tableDNS, String tableName) throws SQLException {		
 		
 		String url="jdbc:ucanaccess://" +  tableDNS; 
-		con = DriverManager.getConnection(url);
+		Connection con = DriverManager.getConnection(url);
 		
 		Statement st = con.createStatement();
 		// Creamos la consulta de selección.
 		String sql = "SELECT * FROM " + tableName;
 		// Ejecutamos la consulta y extraemos los datos
-		rs = st.executeQuery(sql);
+		ResultSet rs = st.executeQuery(sql);
 		// Extraemos la información estructural de la tabla
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
