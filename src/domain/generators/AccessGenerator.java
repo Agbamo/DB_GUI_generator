@@ -95,7 +95,7 @@ public class AccessGenerator extends AbstractGenerator{
 				"		Statement st = con.createStatement();\r\n" + 
 				"		ResultSet rs = st.executeQuery(query);\r\n" + 
 				"		con.close();\r\n" + 
-				"		return rs;" +
+				"		return 1;\r\n" +
 				"}\r\n\r\n" + 
 				"	\r\n" + 
 				"	private static String generateQuery() {\r\n" + 

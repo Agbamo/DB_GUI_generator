@@ -13,7 +13,8 @@ public class DBManager_Template {
 				"import java.sql.SQLException;\r\n" + 
 				"import java.sql.Statement;\r\n" + 
 				"import java.util.Iterator;\r\n" + 
-				"import java.util.Properties;\r\n" + 
+				"import java.util.Properties;\r\n" +
+				"import java.sql.ResultSet;\r\n" + 
 				"\r\n" + 
 				"import domain.Manager;\r\n" + 
 				"\r\n" + 

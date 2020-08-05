@@ -23,7 +23,7 @@ public class ProjectGenerator {
 	static String dbSystem;                           // Tipo de base de datos.
 
 	private static AbstractTableScraper tableScraper; // Lector de la estructura de la base de datos.
-	private static AbstractGenerator adapter;         // Generador de la parte del código variante entre proyectos.
+	private static AbstractGenerator generator;       // Generador de la parte del código variante entre proyectos.
 	private static FileVisitor fileVisitor;           // Gestor de archivos; encargado de copiar la estructura del proyecto.
 	
 	static File inputRoot = new File(ProgramDirectoryUtilities.getProgramDirectory() 
@@ -34,13 +34,18 @@ public class ProjectGenerator {
 	public static void main(String[] args) {	
 		// Leemos los argumentos recibidos por consola.
 		if (readArguments(args)) {
+			System.out.println("GUI Generator");
 			try {
 				// Extraemos los nombres de las columnas y los valores contenidos por la tabla de entrada.
 				instanceTableScraper();
+				if(instanceGenerator() == -1) {
+					System.out.println("SGBD inválido.\r\nLas opciones son: [Access/MySQL/PostgreSQL]");
+					return;
+				}
 				// Copiamos la estructura del proyecto y generamos las partes variables del código.
-				instanceGenerator();
-				fileVisitor = new FileVisitor(inputRoot, outputRoot, tableScraper, adapter, tableName);
+				fileVisitor = new FileVisitor(inputRoot, outputRoot, tableScraper, generator, tableName);
 				fileVisitor.writeProject();
+				System.out.println("Programa generado correctamente!");
 			// Si ocurre una excepción durante la lectura, se informa al usuario y se detiene la ejecución.	
 			} catch (SQLException sqle) {
 				System.out.println("Error while reading input database");
@@ -54,22 +59,26 @@ public class ProjectGenerator {
 			}
 		// Si los argumentos recibidos no tienen el formato correcto, se informa al usuario y se detiene la ejecución.	
 		} else {
-			System.out.println("GUI_Generator:  Usage is:");
-			System.out.println("         java GUI_Generator inputDataBaseURL tableName (Access/MySQL/)");
+			System.out.println("GUI_Generator\r\n  Usage is:");
+			System.out.println("         java GUI_Generator inputDataBaseURL tableName [Access/MySQL/PostgreSQL]");
 			return;
 		}
 	}
 	
 	
 	// Instanciamos el generador con la extensión adecuada para el SGBD que nos ocupa.
-	private static void instanceGenerator() {
+	private static int instanceGenerator() {
 		if(dbSystem.equals("Access")) {
-			adapter = new AccessGenerator();
+			generator = new AccessGenerator();
+			return 0;
 		}else if(dbSystem.equals("MySQL")) {
-			adapter = new MySQLGenerator();
+			generator = new MySQLGenerator();
+			return 0;
 		}else if(dbSystem.equals("PostgreSQL")) {
-			adapter = new PostgreSQLGenerator();
+			generator = new PostgreSQLGenerator();
+			return 0;
 		}
+		return -1;
 	}
 
 	// Instanciamos el scraper con la extensión adecuada para el SGBD que nos ocupa.
